@@ -37,7 +37,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #if defined(_M_X64) || defined(__x86_64__)
 #include "crypto/randomx/jit_compiler_x86_static.hpp"
-#elif defined(XMRIG_ARM)
+#elif defined(XMRIG_ARMv8)
 #include "crypto/randomx/jit_compiler_a64_static.hpp"
 #endif
 
@@ -90,6 +90,16 @@ RandomX_ConfigurationArqma::RandomX_ConfigurationArqma()
 	ProgramCount = 4;
 	ScratchpadL2_Size = 131072;
 	ScratchpadL3_Size = 262144;
+}
+
+RandomX_ConfigurationSafex::RandomX_ConfigurationSafex()
+{
+    ArgonIterations = 3;
+    ArgonSalt = "RandomSFX\x01";
+    ProgramIterations = 2048;
+    ProgramCount = 8;
+    ScratchpadL2_Size = 262144;
+    ScratchpadL3_Size = 2097152;
 }
 
 RandomX_ConfigurationBase::RandomX_ConfigurationBase()
@@ -201,7 +211,7 @@ void RandomX_ConfigurationBase::Apply()
 
 #define JIT_HANDLE(x, prev) randomx::JitCompilerX86::engine[k] = &randomx::JitCompilerX86::h_##x
 
-#elif defined(XMRIG_ARM)
+#elif defined(XMRIG_ARMv8)
 
 	Log2_ScratchpadL1 = Log2(ScratchpadL1_Size);
 	Log2_ScratchpadL2 = Log2(ScratchpadL2_Size);
@@ -259,6 +269,8 @@ RandomX_ConfigurationMonero RandomX_MoneroConfig;
 RandomX_ConfigurationWownero RandomX_WowneroConfig;
 RandomX_ConfigurationLoki RandomX_LokiConfig;
 RandomX_ConfigurationArqma RandomX_ArqmaConfig;
+RandomX_ConfigurationSafex RandomX_SafexConfig;
+
 
 RandomX_ConfigurationBase RandomX_CurrentConfig;
 

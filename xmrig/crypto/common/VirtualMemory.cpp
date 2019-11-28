@@ -27,6 +27,7 @@
 
 #include "crypto/common/VirtualMemory.h"
 #include "backend/cpu/Cpu.h"
+#include "base/io/log/Log.h"
 #include "crypto/common/MemoryPool.h"
 #include "crypto/common/portable/mm_malloc.h"
 
@@ -111,7 +112,7 @@ void xmrig::VirtualMemory::destroy()
 void xmrig::VirtualMemory::init(size_t poolSize, bool hugePages)
 {
     if (!pool) {
-        osInit();
+        osInit(hugePages);
     }
 
 #   ifdef XMRIG_FEATURE_HWLOC
