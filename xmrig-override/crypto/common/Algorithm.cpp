@@ -70,6 +70,7 @@ xmrig::Algorithm::Family xmrig::Algorithm::family(Id id)
     case RX_LOKI:
     case DEFYX:
     case RX_ARQ:
+    case RX_SFX:
         return RANDOM_X;
 #   endif
 
